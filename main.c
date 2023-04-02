@@ -9,14 +9,14 @@ int main(void)
     unsigned int ui;
     void *addr;
 
-    len = _printf("Let's try to printf a simple sentence.\n");
-    len2 = printf("Let's try to printf a simple sentence.\n");
-    ui = (unsigned int)INT_MAX + 1024;
-    addr = (void *)0x7ffe637541f0;
+    len = _printf("Hello my world, it's your boy danny\n");
+    len2 = printf("Hello my world, it's your boy danny\n");
+    ui = (unsigned int)INT_MAX + 1000;
+    addr = (void *)0x6dda438091e09;
     _printf("Length:[%d, %i]\n", len, len);
     printf("Length:[%d, %i]\n", len2, len2);
-    _printf("Negative:[%d]\n", -762534);
-    printf("Negative:[%d]\n", -762534);
+    _printf("Negative:[%d]\n", -732819);
+    printf("Negative:[%d]\n", -732819);
     _printf("Unsigned:[%u]\n", ui);
     printf("Unsigned:[%u]\n", ui);
     _printf("Unsigned octal:[%o]\n", ui);

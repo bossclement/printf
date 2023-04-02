@@ -43,7 +43,7 @@ int print_num(va_list args)
 {
 	int index = 0, count = 0;
 	char str_num[100];
-	long int num = (long int)va_arg(args, int);
+	int num = va_arg(args, int);
 
 	if (num < 0)
 	{
