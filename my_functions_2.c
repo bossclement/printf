@@ -70,5 +70,5 @@ int print_string(char *str)
 		i++;
 	}
 
-	return (i + 1);
+	return (i);
 }

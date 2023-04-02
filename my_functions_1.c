@@ -22,15 +22,8 @@ int print_char(va_list args)
 int print_str(va_list args)
 {
 	char *str = va_arg(args, char *);
-	int i = 0;
 
-	while (str[i] != '\0')
-	{
-		_putchar(str[i]);
-		i++;
-	}
-
-	return (i + 1);
+	return (print_string(str));
 }
 
 /**
