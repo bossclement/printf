@@ -1,74 +1,146 @@
 #include "main.h"
+
 /**
- * is_printable - Evaluates if a char is printable
- * @c: Char to be evaluated.
- *
- * Return: 1 if c is printable, 0 otherwise
+ * int_to_octal - function to change a number to octal
+ * @number: the number to change
+ * @octal_str: pointer to a string where to store my octal
  */
-int is_printable(char c)
+
+void int_to_octal(unsigned int number, char *octal_str)
 {
-if (c >= 32 && c < 127)
-return (1);
-return (0);
+	int i = 0;
+	int k, j = 0;
+	char tmp;
+
+	do {
+		octal_str[i++] = number % 8 + '0';
+		number /= 8;
+	} while (number > 0);
+	octal_str[i] = '\0';
+
+	k = i - 1;
+	while (j < k)
+	{
+		tmp = octal_str[j];
+		octal_str[j] = octal_str[k];
+		octal_str[k] = tmp;
+		j++;
+		k--;
+	}
 }
+
 /**
- * append_hexa_code - Append ascci in hexadecimal code to buffer
- * @buffer: Array of chars.
- * @i: Index at which to start appending.
- * @ascii_code: ASSCI CODE.
- * Return: Always 3
+ * int_to_str - function to change a number to string
+ * @num: the number to change
+ * @dest: pointer to a string where to store my number
+ * Return: pointer to a character
  */
-int append_hexa_code(char ascii_code, char buffer[], int i)
+
+char *int_to_str(long int num, char *dest)
 {
-char map_to[] = "0123456789ABCDEF";
-/* The hexa format code is always 2 digits long */
-if (ascii_code < 0)
-ascii_code *= -1;
-buffer[i++] = '\\';
-buffer[i++] = 'x';
-buffer[i++] = map_to[ascii_code / 16];
-buffer[i] = map_to[ascii_code % 16];
-return (3);
+	int remainder, index = 0;
+	char str_num[100];
+
+	while (num != 0)
+	{
+		remainder = num % 10;
+		num /= 10;
+		str_num[index] = (char)(remainder + '0');
+		index++;
+	}
+
+	remainder = 0;
+	while (index--)
+	{
+		dest[remainder] = str_num[index];
+		remainder++;
+	}
+
+	dest[remainder] = '\0';
+
+	return (dest);
 }
+
 /**
- * is_digit - Verifies if a char is a digit
- * @c: Char to be evaluated
- *
- * Return: 1 if c is a digit, 0 otherwise
+ * _str_len - function to get a string length
+ * @str: the string
+ * Return: length of the string
  */
-int is_digit(char c)
+
+int _str_len(char *str)
 {
-if (c >= '0' && c <= '9')
-return (1);
-return (0);
+	int length = 0;
+
+	if (str)
+	{
+		while (str[length] != '\0')
+			length++;
+	}
+
+	return (length);
 }
+
 /**
- * convert_size_number - Casts a number to the specified size
- * @num: Number to be casted.
- * @size: Number indicating the type to be casted.
- *
- * Return: Casted value of num
+ * int_to_hex - function to change a number to a hexadecimal
+ *		number
+ * @number: the number to change into
+ * @hex_str: pointer to a character to store result
+ * @hex_digits: the character of a hexadecimal number
  */
-long int convert_size_number(long int num, int size)
+
+void int_to_hex(unsigned int number, char *hex_str, char *hex_digits)
 {
-if (size == S_LONG)
-return (num);
-else if (size == S_SHORT)
-return ((short)num);
-return ((int)num);
+	int i = 0;
+	int j = 0, k;
+	char tmp;
+
+	do {
+		hex_str[i++] = hex_digits[number % 16];
+		number /= 16;
+	} while (number > 0);
+	hex_str[i] = '\0';
+
+	k = i - 1;
+	while (j < k)
+	{
+		tmp = hex_str[j];
+		hex_str[j] = hex_str[k];
+		hex_str[k] = tmp;
+		j++;
+		k--;
+	}
 }
+
 /**
- * convert_size_unsgnd - Casts a number to the specified size
- * @num: Number to be casted
- * @size: Number indicating the type to be casted
- *
- * Return: Casted value of num
+ * get_address - function to get address of a pointer
+ * @ptr: the pointer
+ * @str: pointer to a character where to store result
  */
-long int convert_size_unsgnd(unsigned long int num, int size)
+
+void get_address(int *ptr, char *str)
 {
-if (size == S_LONG)
-return (num);
-else if (size == S_SHORT)
-return ((unsigned short)num);
-return ((unsigned int)num);
+	uintptr_t addr = (uintptr_t)ptr;
+	char buffer[16];
+	int index, j, digit, i = 0;
+
+	while (addr > 0)
+	{
+		digit = addr % 16;
+		if (digit < 10)
+			buffer[i] = digit + '0';
+		else
+			buffer[i] = digit - 10 + 'a';
+		i++;
+		addr /= 16;
+	}
+
+	str[0] = '0';
+	str[1] = 'x';
+	index = 2;
+	for (j = i - 1; j >= 0; j--)
+	{
+		str[index] = buffer[j];
+		index++;
+	}
+	str[index] = '\0';
 }

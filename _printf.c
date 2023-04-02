@@ -1,56 +1,73 @@
 #include "main.h"
-void print_buffer(char buffer[], int *buff_ind);
+
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
+ * get_function - function to find a function to use
+ * @format: a formt specifier
+ * Return: pointer to a function
  */
-int _printf(const char *format, ...)
+
+int (*get_function(char format))(va_list args)
 {
-int i, printed = 0, printed_chars = 0;
-int flags, width, precision, size, buff_ind = 0;
-va_list list;
-char buffer[BUFF_SIZE];
-if (format == NULL)
-return (-1);
-va_start(list, format);
-for (i = 0; format && format[i] != '\0'; i++)
-{
-if (format[i] != '%')
-{
-buffer[buff_ind++] = format[i];
-if (buff_ind == BUFF_SIZE)
-print_buffer(buffer, &buff_ind);
-/* write(1, &format[i], 1);*/
-printed_chars++;
+	functions funcs[] = {
+		{"c", print_char},
+		{"s", print_str},
+		{"d", print_num},
+		{"i", print_num},
+		{"u", print_ui},
+		{"o", print_octal},
+		{"x", print_low_hex},
+		{"X", print_high_hex},
+		{"p", print_address},
+		{"%", print_per_cent},
+		{NULL, NULL}
+	};
+	int index = 0;
+
+	while (funcs[index].symbol != NULL)
+	{
+		if (*(funcs[index].symbol) == format)
+			break;
+		index++;
+	}
+
+	return (funcs[index].func);
 }
-else
-{
-print_buffer(buffer, &buff_ind);
-flags = get_flags(format, &i);
-width = get_width(format, &i, list);
-precision = get_precision(format, &i, list);
-size = get_size(format, &i);
-++i;
-printed = handle_print(format, &i, list, buffer,
-flags, width, precision, size);
-if (printed == -1)
-return (-1);
-printed_chars += printed;
-}
-}
-print_buffer(buffer, &buff_ind);
-va_end(list);
-return (printed_chars);
-}
+
 /**
- * print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of chars
- * @buff_ind: Index at which to add next char, represents the length.
+ * _printf - function to find a function to use
+ * @format: pointer to a string
+ * @...: list of arguments
+ * Return: pointer to a function
  */
-void print_buffer(char buffer[], int *buff_ind)
+
+int _printf(char *format, ...)
 {
-if (*buff_ind > 0)
-write(1, &buffer[0], *buff_ind);
-*buff_ind = 0;
+	va_list args;
+	int index = 0, count = 0;
+	int (*func)(va_list args);
+
+	va_start(args, format);
+	while (format[index] != '\0')
+	{
+		if (format[index] == '%')
+		{
+			func = get_function(format[index + 1]);
+			if (func != NULL)
+			{
+				count += func(args);
+				index += 2;
+			} else
+			{
+				count += _putchar('%');
+				count += _putchar(format[index + 1]);
+				index += 2;
+			}
+		}
+
+		count += _putchar(format[index]);
+		index++;
+	}
+
+	va_end(args);
+	return (count);
 }
