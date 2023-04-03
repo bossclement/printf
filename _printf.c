@@ -18,7 +18,6 @@ int (*get_function(char format))(va_list args)
 		{"x", print_low_hex},
 		{"X", print_high_hex},
 		{"p", print_address},
-		{"%", print_per_cent},
 		{NULL, NULL}
 	};
 	int index = 0;
@@ -61,7 +60,8 @@ int _printf(char *format, ...)
 				if (format[index + 1] == '\0')
 					return(-1);
 				count += _putchar('%');
-				count += _putchar(format[index + 1]);
+				if (format[index + 1] != '%')
+					count += _putchar(format[index + 1]);
 				index += 2;
 			}
 			continue;

@@ -23,7 +23,6 @@ int _putchar(char c);
 int print_low_hex(va_list args);
 int print_high_hex(va_list args);
 int print_address(va_list args);
-int print_per_cent(va_list args);
 int print_string(char *str);
 
 char *int_to_str(long int num, char *dest);

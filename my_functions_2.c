@@ -43,18 +43,6 @@ int print_address(va_list args)
 }
 
 /**
- * print_per_cent - function that a percent sine
- * @args: list of arguments
- * Return: number
- */
-
-int print_per_cent(va_list args)
-{
-	char c __attribute__((unused)) = va_arg(args, int);
-	return (_putchar('%'));
-}
-
-/**
  * print_string - function that prints a string
  * @str: the string
  * Return: number
