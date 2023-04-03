@@ -65,7 +65,7 @@ int print_string(char *str)
 	int i = 0;
 
 	if (str == NULL)
-		return (i);
+		str = "(null)";
 
 	while (str[i] != '\0')
 	{
