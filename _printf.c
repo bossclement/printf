@@ -59,6 +59,8 @@ int _printf(char *format, ...)
 			} else
 			{
 				count += _putchar('%');
+				if (format[index + 1] == '\0')
+					break;
 				count += _putchar(format[index + 1]);
 				index += 2;
 			}
