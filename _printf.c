@@ -60,7 +60,7 @@ int _printf(char *format, ...)
 			{
 				count += _putchar('%');
 				if (format[index + 1] == '\0')
-					break;
+					return(-1);
 				count += _putchar(format[index + 1]);
 				index += 2;
 			}
