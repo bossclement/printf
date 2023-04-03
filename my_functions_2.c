@@ -38,7 +38,7 @@ int print_address(va_list args)
 {
 	char dummy_str[100];
 
-	get_address((void *) va_arg(args, int*), dummy_str);
+	get_address(va_arg(args, int *), dummy_str);
 	return (print_string(dummy_str));
 }
 
@@ -50,16 +50,16 @@ int print_address(va_list args)
 
 int print_string(char *str)
 {
-	int i = 0;
+	int i = 0, count = 0;
 
 	if (str == NULL)
 		str = "(null)";
 
 	while (str[i] != '\0')
 	{
-		_putchar(str[i]);
+		count += _putchar(str[i]);
 		i++;
 	}
 
-	return (i);
+	return (count);
 }

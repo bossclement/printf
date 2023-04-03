@@ -21,9 +21,7 @@ int print_char(va_list args)
 
 int print_str(va_list args)
 {
-	char *str = va_arg(args, char *);
-
-	return (print_string(str));
+	return (print_string(va_arg(args, char *)));
 }
 
 /**
@@ -34,9 +32,9 @@ int print_str(va_list args)
 
 int print_num(va_list args)
 {
-	int index = 0, count = 0;
+	int count = 0;
 	char str_num[100];
-	int num = va_arg(args, int);
+	long int num = (long int)va_arg(args, int);
 
 	if (num < 0)
 	{
@@ -50,11 +48,7 @@ int print_num(va_list args)
 	}
 
 	int_to_str(num, str_num);
-	while (str_num[index])
-	{
-		count += _putchar(str_num[index]);
-		index++;
-	}
+	count += print_string(str_num);
 
 	return (count);
 }
