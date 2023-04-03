@@ -62,6 +62,7 @@ int _printf(char *format, ...)
 				count += _putchar(format[index + 1]);
 				index += 2;
 			}
+			continue;
 		}
 
 		count += _putchar(format[index]);
