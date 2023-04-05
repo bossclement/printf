@@ -52,5 +52,8 @@ int main(void)
     len2 = printf("Unknown:[%rrr]\n");
     _printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
+    addr = NULL;
+    printf("Adrress [%p]\n", (void *)addr);
+    _printf("Adrress [%p]\n", (void *)addr);
     return (0);
 }

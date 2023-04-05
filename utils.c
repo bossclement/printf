@@ -123,6 +123,17 @@ void get_address(int *ptr, char *str)
 	char buffer[16];
 	int index, j, digit, i = 0;
 
+	if (ptr == NULL)
+	{
+		str[0] = '(';
+		str[1] = 'n';
+		str[2] = 'i';
+		str[3] = 'l';
+		str[4] = ')';
+		str[5] = '\0';
+		return;
+	}
+
 	while (addr > 0)
 	{
 		digit = addr % 16;
